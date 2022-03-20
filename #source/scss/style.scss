@@ -1,0 +1,577 @@
+//<МИКСИНЫ>=============================================================================================
+@mixin anim($time, $delay) {
+	-webkit-transition: all $time ease $delay;
+	-moz-transition: all $time ease $delay;
+	-ms-transition: all $time ease $delay;
+	-o-transition: all $time ease $delay;
+	transition: all $time ease $delay;
+}
+@mixin anim_cibic($time, $delay) {
+	-webkit-transition: all $time cubic-bezier(0.68, -0.55, 0.265, 1.55) $delay;
+	-moz-transition: all $time cubic-bezier(0.68, -0.55, 0.265, 1.55) $delay;
+	-ms-transition: all $time cubic-bezier(0.68, -0.55, 0.265, 1.55) $delay;
+	-o-transition: all $time cubic-bezier(0.68, -0.55, 0.265, 1.55) $delay;
+}
+@mixin rotate($deg) {
+	-moz-transform: rotate($deg);
+	-ms-transform: rotate($deg);
+	-webkit-transform: rotate($deg);
+	-o-transform: rotate($deg);
+	transform: rotate($deg);
+}
+@mixin scale($num) {
+	-moz-transform: scale($num);
+	-ms-transform: scale($num);
+	-webkit-transform: scale($num);
+	-o-transform: scale($num);
+	transform: scale($num);
+}
+@mixin skew($num) {
+	-moz-transform: skewX($num);
+	-ms-transform: skewX($num);
+	-webkit-transform: skewX($num);
+	-o-transform: skewX($num);
+	transform: skewX($num);
+}
+@mixin cnt($h) {
+	display: flex;
+	flex-direction: column;
+	height: $h;
+	text-align: center;
+	align-items: stretch;
+	justify-content: center;
+}
+@mixin tran($x, $y) {
+	transform: translate($x, $y);
+}
+@mixin tr($x, $y, $z) {
+	transform: translate3d($x, $y, $z);
+}
+@mixin flexbox() {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	font-size: 0;
+}
+@mixin flexboxinline() {
+	display: -webkit-inline-flex;
+	display: -moz-inline-flex;
+	display: -ms-inline-flex;
+	display: -o-inline-flex;
+	display: inline-flex;
+}
+@mixin flexorder($val) {
+	-webkit-box-ordinal-group: $val;
+	-moz-box-ordinal-group: $val;
+	-ms-flex-order: $val;
+	-webkit-order: $val;
+	order: $val;
+}
+//<ШРИФТЫ>=======================================================================================================
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,900;1,700&display=swap");
+
+//<ПЕРЕМЕННЫЕ>=================================================================================================== $minwidth: 320px;
+$mw: 1130;
+$md1: $mw - 12;
+$md2: 992.98;
+$md3: 767.98;
+$md4: 479.98;
+$fontfamily: "Lato";
+//<Адаптивный шрифт>=======================================================================================================
+@mixin adaptiv-font($pcSize, $mobSize) {
+	$addSize: $pcSize - $mobSize;
+	$maxWidth: $mw - 320;
+	font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+//<ФУНКЦИИ>===================================================================================================
+@function prc($pxOne, $pxTwo) {
+	$resalt: math.div($pxOne, $pxTwo) * 100%;
+	@return $resalt;
+}
+@function rem($px) {
+	$resalt: math.div($px, 16) + rem;
+	@return $resalt;
+}
+@function em($px) {
+	$resalt: math.div($px, 16) + em;
+	@return $resalt;
+}
+
+//<ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>===================================================================================
+@import "_nullstyle";
+
+//<SCSS ОБЩЕЕ>===================================================================================================
+$fz1: 60px;
+$fz2: 20px;
+$color_1: blue;
+$color_2: chartreuse;
+
+%tplborder {
+	border-bottom: 2px double rgb(223, 18, 18);
+}
+
+//@extend %tplborder;
+
+//<ОБОЛОЧКА>======================================================================================================
+.wrapper {
+	font-family: $fontfamily;
+	width: 100%;
+	min-height: 100%;
+	height: 100%;
+	overflow: hidden;
+	@include flexbox();
+	flex-direction: column;
+}
+//<ОСНОВНАЯ СЕТКА>================================================================================================
+.container {
+	max-width: $mw + px;
+	margin: 0 auto;
+	width: 100%;
+	position: relative;
+	padding: 0px 15px;
+	@media (max-width: $md1+px) {
+		max-width: 970px;
+	}
+	@media (max-width: $md2+px) {
+		max-width: 750px;
+	}
+	@media (max-width: $md3+px) {
+		max-width: none;
+		padding: 0 10px;
+	}
+}
+//<ПОДКЛЮЧЕНИЕ ФАЙЛОВ СТИЛЕЙ СТРАНИЦ И ЭЛЕМЕНТОВ>====================================================================
+//@import "popup.scss"
+@import "_header";
+@import "_footer";
+
+//<ОСНОВНОЙ БЛОК>====================================================================================================
+.page {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	@include flexbox();
+	flex-direction: column;
+}
+.main-screen {
+	flex: 1 0 100%;
+	&__ibg {
+		height: 100%;
+	}
+}
+.generation {
+	background: #f7f7f7;
+	&__block {
+		padding: 119px 0px;
+		@media (max-width: $md2+px) {
+			padding: 79px 0px;
+		}
+		@media (max-width: $md3+px) {
+			padding: 30px 0px;
+		}
+	}
+}
+
+.block {
+	text-align: center;
+	&__icon {
+		margin: 0px 0px 30px 0px;
+	}
+
+	&__title {
+		color: #353738;
+		font-size: 1.125rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.225rem;
+		margin: 0px 0px 18px 0px;
+		line-height: 1.333;
+	}
+
+	&__text {
+		color: #848789;
+		font-size: 1.125rem;
+		line-height: 1.889;
+	}
+}
+.vintage {
+	&_rev {
+		.vintage__column {
+			@include flexorder(1);
+			&_b {
+				@include flexorder(2);
+			}
+		}
+	}
+	&_last {
+		margin: 0px 0px 61px 0px;
+		@media (max-width: $md3+px) {
+			margin: 0px 0px 40px 0px;
+		}
+		@media (max-width: 1100px) {
+			.vintage__column {
+				&:nth-child(1) {
+					@include flexorder(2);
+				}
+				&:nth-child(2) {
+					@include flexorder(1);
+				}
+				&:nth-child(3) {
+					@include flexorder(3);
+				}
+			}
+		}
+	}
+	&__row {
+		@include flexbox();
+		@media (max-width: 1100px) {
+			flex-direction: column;
+		}
+	}
+
+	&__column {
+		flex: 1 1 33.333%;
+
+		&_b {
+			flex: 1 1 66.667%;
+		}
+	}
+
+	&__block {
+		margin: 70px 65px 95px 65px;
+		position: relative;
+		&::before {
+			content: "";
+			position: absolute;
+			bottom: -40px;
+			left: 50%;
+			width: 50px;
+			height: 1px;
+			background: #d7d7d7;
+			@include tran(-50%, 0);
+			@media (max-width: 1500px) {
+				bottom: -25px;
+			}
+		}
+		@media (max-width: 1500px) {
+			margin: 40px 35px 65px 35px;
+		}
+	}
+
+	&__image {
+		padding: 0px 0px 37.51% 0px;
+		position: relative;
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 50%;
+			width: 0;
+			height: 0;
+			border-top: 10px solid #fff;
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+			@include tran(-50%, 0);
+		}
+		img {
+			max-width: 100%;
+			object-fit: cover;
+			object-position: center;
+		}
+	}
+}
+.item {
+	height: 100%;
+	display: block;
+	position: relative;
+	&__logo {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 2;
+		@include flexbox();
+		flex-direction: column;
+		font-size: 0.875rem;
+		font-weight: 700;
+		color: #fff;
+		letter-spacing: 2.8px;
+		justify-content: center;
+		align-items: center;
+		text-transform: uppercase;
+		@include scale(0);
+		span {
+			margin: 10px 0px 0px 0px;
+		}
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(115, 186, 158, 0.5);
+			@include scale(0);
+		}
+		&:hover:before {
+			@include scale(1);
+		}
+		img {
+			max-width: 100%;
+			object-fit: cover;
+			object-position: center;
+		}
+	}
+	&:hover .item__logo {
+		@include scale(1);
+	}
+	&__image {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		img {
+			max-width: 100%;
+			object-fit: cover;
+			object-position: center;
+		}
+	}
+	@media (max-width: 1100px) {
+		height: auto;
+		padding: 0px 0px 70% 0px;
+	}
+}
+.block {
+	&__text {
+		&_j {
+			text-align: justify;
+			font-size: 1rem;
+			line-height: 1.875;
+		}
+	}
+}
+.slider {
+	position: relative;
+	padding: 61px 0px 60px 0px;
+	@media (max-width: 1100px) {
+		padding: 0px 0px 60px 0px;
+	}
+	@media (max-width: $md3+px) {
+		padding: 0px 0px 30px 0px;
+	}
+
+	&__item {
+		text-align: center;
+	}
+
+	&__image {
+		margin: 0px 0px 20px 0px;
+	}
+
+	&__title {
+		font-size: 1.125rem;
+		line-height: 1.889;
+		font-weight: 700;
+		margin: 0px 0px 15px 0px;
+		color: #353738;
+		span {
+			color: #848789;
+			font-weight: 300;
+		}
+	}
+
+	&__text {
+		font-size: 1.5rem;
+		line-height: 1.416;
+		color: #848789;
+		font-style: italic;
+	}
+}
+.slick-track {
+	@include flexbox();
+	align-items: flex-start;
+}
+.slider__body .slick-dots {
+	@include flexbox();
+	align-items: center;
+	justify-content: center;
+	margin: 10px 0px 0px 0px;
+}
+.slider__body .slick-dots li {
+	list-style: none;
+	margin: 0px 10px 0px 0px;
+}
+.slider__body .slick-dots li.slick-active button {
+	background-color: #c9c9c9;
+	border: 1px solid #c9c9c9;
+}
+.slider__body .slick-dots li button {
+	font-size: 0;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: #fff;
+	border: 1px solid #c9c9c9;
+}
+.slick-list {
+	overflow: hidden;
+	margin: 0px 0px 100px 0px;
+	@media (max-width: 1100px) {
+		margin: 0px 0px 60px 0px;
+	}
+	@media (max-width: $md3+px) {
+		margin: 0px 0px 30px 0px;
+	}
+}
+.cards {
+	&__row {
+		@include flexbox();
+		@media (max-width: 1100px) {
+			flex-wrap: wrap;
+		}
+	}
+
+	&__column {
+		flex: 1 1 16.666%;
+		@media (max-width: 1100px) {
+			flex: 0 1 50%;
+		}
+		&:first-child {
+			@media (max-width: 1100px) {
+				flex: 1 1 100%;
+			}
+		}
+		&:last-child {
+			@media (max-width: 1100px) {
+				flex: 1 1 100%;
+			}
+		}
+		&_b {
+			flex: 1 1 33.333%;
+		}
+	}
+	&__footer {
+		background: #282f35;
+		text-align: center;
+		padding: 50px 0px;
+	}
+}
+.block-cards {
+	height: 100%;
+	&__row {
+		@include flexbox();
+	}
+
+	&__column {
+		flex: 1 1 50%;
+	}
+	&__item {
+		height: auto;
+		padding: 0px 0px 50% 0px;
+		&_l {
+			padding: 0px 0px 100% 0px;
+		}
+		&_b {
+			padding: 0px 0px 200.5% 0px;
+			img {
+				max-width: 100%;
+				object-fit: cover;
+				object-position: center;
+			}
+		}
+	}
+}
+.form {
+	@include flexbox();
+	@media (max-width: $md3+px) {
+		flex-direction: column;
+	}
+	&__body {
+		padding: 110px 0px;
+		max-width: 534px;
+		margin: 0 auto;
+		text-align: center;
+		@media (max-width: $md3+px) {
+			padding: 50px 0px;
+		}
+	}
+
+	&__logo {
+		margin: 0px 0px 39px 0px;
+		img {
+			max-width: 100%;
+		}
+	}
+
+	&__title {
+		font-size: 1.5rem;
+		color: #848789;
+		margin: 0px 0px 35px 0px;
+		font-style: italic;
+	}
+
+	&__input {
+		flex: 1 1 auto;
+		margin: 0px 8px 0px 0px;
+		@media (max-width: $md3+px) {
+			margin: 0px 0px 8px 0px;
+		}
+	}
+
+	&__button {
+	}
+
+	&__btn {
+		@include flexboxinline();
+		background: #64c29e;
+		justify-content: center;
+		align-items: center;
+		font-size: 1.5rem;
+		position: relative;
+		line-height: 69px;
+		letter-spacing: 2px;
+		font-family: Lato;
+		text-transform: uppercase;
+		padding: 0px 46px;
+		@include anim(0.3s, 0s);
+		@include scale(1);
+		@media (max-width: $md3+px) {
+			width: 100%;
+		}
+		span {
+			color: #ffffff;
+			z-index: 2;
+		}
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			background: #bbf1db;
+
+			@include anim(0.3s, 0s);
+			@include scale(0);
+		}
+		&:hover {
+			bottom: 5px;
+		}
+		&:active {
+			bottom: 0px;
+		}
+		&:hover:before {
+			box-shadow: 0 0 15px #bbf1db;
+			@include scale(1);
+		}
+	}
+}
+//<ПОДКЛЮЧЕНИЕ ФАЙЛОВ UI СТИЛЕЙ, ФОРМ И ГОТОВЫХ КЛАССОВ>=============================================================
+@import "_forms";
